@@ -6,17 +6,18 @@ import net.luckperms.api.context.ContextSet;
 import net.luckperms.api.context.ImmutableContextSet;
 
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 public class WhitelistedCalculator implements ContextCalculator<Player> {
     private static final String KEY = "whitelisted";
 
     @Override
-    public void calculate(Player target, ContextConsumer consumer) {
+    public void calculate(@NotNull Player target, @NotNull ContextConsumer consumer) {
         consumer.accept(KEY, String.valueOf(target.isWhitelisted()));
     }
 
     @Override
-    public ContextSet estimatePotentialContexts() {
+    public @NotNull ContextSet estimatePotentialContexts() {
         return ImmutableContextSet.builder()
                 .add(KEY, "true")
                 .add(KEY, "false")

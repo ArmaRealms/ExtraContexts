@@ -10,6 +10,7 @@ import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.codemc.worldguardwrapper.WorldGuardWrapper;
 import org.codemc.worldguardwrapper.region.IWrappedRegion;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Set;
 
@@ -20,7 +21,7 @@ public class WorldGuardRegionCalculator implements ContextCalculator<Player> {
     private final WorldGuardWrapper worldGuard = WorldGuardWrapper.getInstance();
 
     @Override
-    public void calculate(Player target, ContextConsumer consumer) {
+    public void calculate(@NotNull Player target, @NotNull ContextConsumer consumer) {
         Set<IWrappedRegion> regions = this.worldGuard.getRegions(target.getLocation());
 
         if (regions.isEmpty()) {
@@ -34,7 +35,7 @@ public class WorldGuardRegionCalculator implements ContextCalculator<Player> {
     }
 
     @Override
-    public ContextSet estimatePotentialContexts() {
+    public @NotNull ContextSet estimatePotentialContexts() {
         ImmutableContextSet.Builder builder = ImmutableContextSet.builder();
         for (World world : Bukkit.getWorlds()) {
             for (IWrappedRegion region : this.worldGuard.getRegions(world).values()) {

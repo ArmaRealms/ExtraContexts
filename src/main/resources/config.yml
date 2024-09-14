@@ -42,6 +42,10 @@ team: false
 # e.g. has-played-before=false
 has-played-before: false
 
+## Provides the 'floodgate' context.
+## Returns if the player is using the Floodgate plugin to connect to the server.
+floodgate: false
+
 placeholderapi: false
 placeholderapi-placeholders:
   allowflight: "%player_allow_flight%"

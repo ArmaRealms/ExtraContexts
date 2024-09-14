@@ -1,5 +1,6 @@
 package me.lucko.extracontexts;
 
+import me.lucko.extracontexts.calculators.FloodgateCalculator;
 import me.lucko.extracontexts.calculators.HasPlayedBeforeCalculator;
 import me.lucko.extracontexts.calculators.PlaceholderApiCalculator;
 import me.lucko.extracontexts.calculators.TeamCalculator;
@@ -17,6 +18,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +46,7 @@ public class ExtraContextsPlugin extends JavaPlugin implements CommandExecutor {
     }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, Command command, String label, String[] args) {
         unregisterAll();
         reloadConfig();
         setup();
@@ -58,6 +60,7 @@ public class ExtraContextsPlugin extends JavaPlugin implements CommandExecutor {
         register("whitelisted", null, WhitelistedCalculator::new);
         register("team", null, TeamCalculator::new);
         register("has-played-before", null, HasPlayedBeforeCalculator::new);
+        register("floodgate", "floodgate", FloodgateCalculator::new);
         register("placeholderapi", "PlaceholderAPI", () -> new PlaceholderApiCalculator(getConfig().getConfigurationSection("placeholderapi-placeholders")));
     }
 

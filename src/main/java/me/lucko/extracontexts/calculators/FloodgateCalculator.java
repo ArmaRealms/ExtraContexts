@@ -4,16 +4,16 @@ import net.luckperms.api.context.ContextCalculator;
 import net.luckperms.api.context.ContextConsumer;
 import net.luckperms.api.context.ContextSet;
 import net.luckperms.api.context.ImmutableContextSet;
-
 import org.bukkit.entity.Player;
+import org.geysermc.floodgate.api.FloodgateApi;
 import org.jetbrains.annotations.NotNull;
 
-public class HasPlayedBeforeCalculator implements ContextCalculator<Player> {
-    private static final String KEY = "has-played-before";
+public class FloodgateCalculator implements ContextCalculator<Player> {
+    private static final String KEY = "floodgate";
 
     @Override
     public void calculate(@NotNull Player target, @NotNull ContextConsumer consumer) {
-        consumer.accept(KEY, String.valueOf(target.hasPlayedBefore()));
+        consumer.accept(KEY, String.valueOf(FloodgateApi.getInstance().isFloodgateId(target.getUniqueId())));
     }
 
     @Override

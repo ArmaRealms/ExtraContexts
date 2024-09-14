@@ -7,12 +7,13 @@ import net.luckperms.api.context.ImmutableContextSet;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Team;
+import org.jetbrains.annotations.NotNull;
 
 public class TeamCalculator implements ContextCalculator<Player> {
     private static final String KEY = "team";
 
     @Override
-    public void calculate(Player target, ContextConsumer consumer) {
+    public void calculate(@NotNull Player target, @NotNull ContextConsumer consumer) {
         Team team = Bukkit.getScoreboardManager().getMainScoreboard().getTeam(target.getName());
         if (team != null) {
             consumer.accept(KEY, team.getName());
@@ -20,7 +21,7 @@ public class TeamCalculator implements ContextCalculator<Player> {
     }
 
     @Override
-    public ContextSet estimatePotentialContexts() {
+    public @NotNull ContextSet estimatePotentialContexts() {
         ImmutableContextSet.Builder builder = ImmutableContextSet.builder();
         for (Team team : Bukkit.getScoreboardManager().getMainScoreboard().getTeams()) {
             builder.add(KEY, team.getName());

@@ -16,6 +16,7 @@ import org.codemc.worldguardwrapper.flag.IWrappedFlag;
 import org.codemc.worldguardwrapper.flag.IWrappedStatusFlag;
 import org.codemc.worldguardwrapper.flag.WrappedState;
 import org.codemc.worldguardwrapper.region.IWrappedRegion;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
 
@@ -38,7 +39,7 @@ public class WorldGuardFlagCalculator implements ContextCalculator<Player> {
     private final WorldGuardWrapper worldGuard = WorldGuardWrapper.getInstance();
 
     @Override
-    public void calculate(Player target, ContextConsumer consumer) {
+    public void calculate(@NotNull Player target, @NotNull ContextConsumer consumer) {
         if (IN_PROGRESS.get()) {
             return;
         }
@@ -58,7 +59,7 @@ public class WorldGuardFlagCalculator implements ContextCalculator<Player> {
     }
 
     @Override
-    public ContextSet estimatePotentialContexts() {
+    public @NotNull ContextSet estimatePotentialContexts() {
         ImmutableContextSet.Builder builder = ImmutableContextSet.builder();
         for (World world : Bukkit.getWorlds()) {
             for (IWrappedRegion region : this.worldGuard.getRegions(world).values()) {
